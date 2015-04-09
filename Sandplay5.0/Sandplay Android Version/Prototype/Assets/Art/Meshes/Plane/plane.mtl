@@ -1,0 +1,63 @@
+newmtl blinn1SG
+illum 4
+Kd 0.72 0.72 0.72
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+newmtl fix:glassV2_5:blinn1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 0.86 0.86 0.86
+Ni 1.20
+Ks 1.00 1.00 1.00
+newmtl fix:phongE1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd color copy.tga
+bump bumpcopy.tga -bm 0.005
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks specular.tga
+newmtl glassV2_5:blinn1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 0.86 0.86 0.86
+Ni 1.20
+Ks 1.00 1.00 1.00
+newmtl lambert4SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd interiorcolor.tga
+Ni 1.00
+newmtl lambert5SG
+illum 4
+Kd 0.07 0.07 0.07
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.72 0.72 0.72
+newmtl phongE1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd color copy.tga
+bump bumpcopy.tga -bm 0.005
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks specular.tga
+newmtl tyreShader:tyreShaderSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
