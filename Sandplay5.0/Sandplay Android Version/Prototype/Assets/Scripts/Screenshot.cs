@@ -16,7 +16,7 @@ public class Screenshot : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer)
         {
-            folder = Application.dataPath + "/StreamingAssets/";//"/../Screenshots";
+            folder = Application.dataPath + "/StreamingAssets/";//"/../Screenshots"; // this will do nothing StreamingAssets don't work on the web
         }
         else
         {
@@ -30,5 +30,9 @@ public class Screenshot : MonoBehaviour
         string currentDT = DateTime.Now.ToString( "yyyy-MM-dd HH.mm.ss" );
 
         Application.CaptureScreenshot(folder + fileName + currentDT +".png");
+        // TODO: this method is not going to work for the web.
+        // Task 1: Capture screenshot using RenderTexture(web only)
+        // Task 2: Upload it to the server(web only)
+
     }
 }
