@@ -24,3 +24,6 @@ UnityVS/
 incrementalSave/*
 UnityVS*
 *.BridgeLabelsAndRatings
+
+#Screenshots
+Assets/Screenshots/

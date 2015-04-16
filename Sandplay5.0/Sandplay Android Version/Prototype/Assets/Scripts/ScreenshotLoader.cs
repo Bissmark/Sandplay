@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ public class ScreenshotLoader : MonoBehaviour {
 	public GameObject screenshotHelp;
 	Screenshot testPath;
 
+    // the extensions we only want to load
+    private List<string> _imageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -21,7 +25,7 @@ public class ScreenshotLoader : MonoBehaviour {
 	{
 		if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer) 
 		{
-			return Directory.GetFiles (Application.dataPath + "/StreamingAssets/");
+			return Directory.GetFiles (Application.dataPath + "/StreamingAssets/"); // this never is going to happen
 		} 
 		else 
 		{
@@ -40,6 +44,12 @@ public class ScreenshotLoader : MonoBehaviour {
 		int i = 0;
 		foreach (string s in filenames)
 		{
+            // skipping on non image files
+            if (!_imageExtensions.Contains( Path.GetExtension( s ).ToUpperInvariant() ) )
+            {
+                continue;
+            }
+
 			FileStream fs = new FileStream(s, FileMode.Open, FileAccess.Read);
 			byte[] imageData = new byte[fs.Length];
 			fs.Read(imageData, 0, (int)fs.Length);
