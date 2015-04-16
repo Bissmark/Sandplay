@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using System;
 
 public class Screenshot : MonoBehaviour
 {
-	public string[] fileName;
-    string folder;
+    // exposed variables
+    [SerializeField]
+    private string fileName;
+
+    // varibales
+    private string folder;
 
     void Start()
     {
@@ -22,9 +27,8 @@ public class Screenshot : MonoBehaviour
 
     public void SaveScreenshot()
     {
-        for (int i = 0; i < fileName.Length; i++)
-        {
-            Application.CaptureScreenshot(folder + fileName[i] + ".png");
-        }
+        string currentDT = DateTime.Now.ToString( "yyyy-MM-dd HH.mm.ss" );
+
+        Application.CaptureScreenshot(folder + fileName + currentDT +".png");
     }
 }
