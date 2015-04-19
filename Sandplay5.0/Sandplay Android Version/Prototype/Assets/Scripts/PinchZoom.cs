@@ -87,11 +87,10 @@ public class PinchZoom : MonoBehaviour
         {
             if ( Physics.Raycast( ray, out hit, 100 ) && hit.collider.tag == "Object" )
             {
-
-                lookAtTarget = true;
-
                 // acquire target model transform
                 target = hit.collider.gameObject.transform;
+
+                lookAtTarget = true;
 
                 // zoom onto target
                 FieldOfView = Mathf.Clamp( Mathf.Lerp( FieldOfView, FieldOfView - scroll * ROTSpeed, Time.deltaTime * smooth ), minFieldOfView, maxFieldOfView );
