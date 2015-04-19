@@ -45,11 +45,24 @@ public class PinchZoom : MonoBehaviour
 //    }
 
 	public float ROTSpeed = 15;
-	public float smooth = 5.0f;
+	public float smooth = 20.0f;
+
+    [SerializeField]
+    private float lookAtOffset = 2.5f;
+
+    [SerializeField]
+    private float minFieldOfView = 35.0f;
+
+    [SerializeField]
+    private float maxFieldOfView = 60.0f;
+
+    private float FieldOfView { get { return GetComponent<Camera>().fieldOfView; } set { GetComponent<Camera>().fieldOfView = value; } }
+
+    private Transform target = null;
+
+
 	RaycastHit hit;
 	private Quaternion startPosition;
-	int minimum = 35;
-	int maximum = 60;
 	//private bool zoomedIn = true;
 
 	//private float alpha = 1.0f;
@@ -69,10 +82,15 @@ public class PinchZoom : MonoBehaviour
 		{
 			if (Physics.Raycast (ray, out hit, 100) && hit.collider.tag == "Object")
 			{
-                GetComponent<Camera>().fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ROTSpeed;
-                GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, minimum, Time.deltaTime * smooth);
-				//hit.collider.gameObject.rotation = Quaternion.Slerp(hit.collider.gameObject.rotation, newRotation, .05f);
-                GetComponent<Camera>().transform.LookAt(hit.collider.gameObject.transform);
+                // acquire target model transform
+                target = hit.collider.gameObject.transform;
+
+                // look at target
+                Vector3 lookAtPosition = new Vector3( target.position.x, target.position.y + lookAtOffset, target.position.z );
+                GetComponent<Camera>().transform.LookAt( lookAtPosition );
+
+                // zoom onto target
+                FieldOfView = Mathf.Clamp( Mathf.Lerp( FieldOfView, FieldOfView - scroll * ROTSpeed, Time.deltaTime * smooth ), minFieldOfView, maxFieldOfView );
 			}
 		}
 			if(Input.GetKeyDown("space"))
