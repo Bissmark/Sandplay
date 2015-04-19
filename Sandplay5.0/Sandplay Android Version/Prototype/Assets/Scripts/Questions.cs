@@ -6,34 +6,28 @@ using UnityEngine.UI;
 public class Questions : MonoBehaviour 
 {
 	private bool questioning = false;
-	public GameObject questionButton;
 	public GameObject questionBackground;
 	public GameObject questionButtonText;
 	public QuestionLogic questionLogic;	
 	
 	public void ShowQuestion() 
 	{
-		questioning = !questioning;
-		
-		if(questioning)
+		//questioning = !questioning;
+
+		if(!questioning)
 		{
-			Debug.Log("Test");
+			questioning = true;
 			questionLogic.UpdateContent();
-			questionBackground.active = true;
+			questionBackground.SetActive(true);
 			questionButtonText.GetComponent<Text>().text = "Welcome to Sandplay";
-			questioning = false;
+
 		}
 		else
-		{			
+		{
+			questioning = false;
 			questionLogic.HideContent();
-			questionBackground.active = false;
-			questionButtonText.GetComponent<Text>().text = "Show Question";
+			questionBackground.SetActive(false);
+			questionButtonText.SetActive(false);
 		}
-	}
-	
-	public void Tween() 
-	{		
-		//ToggleMenu();
-		//objectsTween.Play(true);	
 	}
 }

@@ -251,7 +251,7 @@ public class QuestionLogic : MonoBehaviour
 					break;
 				case 1:
 					questionEnable.ShowQuestion();
-					questionEnable.Tween();
+					//questionEnable.Tween();
 					break;
 				case 4:
 					goto case 1;
@@ -277,7 +277,7 @@ public class QuestionLogic : MonoBehaviour
 					break;
 				case 16:
 					questionEnable.ShowQuestion();
-					questionEnable.Tween();
+					//questionEnable.Tween();
 					break;
 			
 				default:
