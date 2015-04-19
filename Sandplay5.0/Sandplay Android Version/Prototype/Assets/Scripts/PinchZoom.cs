@@ -56,9 +56,14 @@ public class PinchZoom : MonoBehaviour
     [SerializeField]
     private float maxFieldOfView = 60.0f;
 
+    [SerializeField]
+    private float cameraRotationSpeed = 5.0f;
+
     private float FieldOfView { get { return GetComponent<Camera>().fieldOfView; } set { GetComponent<Camera>().fieldOfView = value; } }
 
     private Transform target = null;
+
+    private bool lookAtTarget = false;
 
 
 	RaycastHit hit;
@@ -82,22 +87,32 @@ public class PinchZoom : MonoBehaviour
 		{
 			if (Physics.Raycast (ray, out hit, 100) && hit.collider.tag == "Object")
 			{
+
+                lookAtTarget = true;
+                
                 // acquire target model transform
                 target = hit.collider.gameObject.transform;
-
-                // look at target
-                Vector3 lookAtPosition = new Vector3( target.position.x, target.position.y + lookAtOffset, target.position.z );
-                GetComponent<Camera>().transform.LookAt( lookAtPosition );
 
                 // zoom onto target
                 FieldOfView = Mathf.Clamp( Mathf.Lerp( FieldOfView, FieldOfView - scroll * ROTSpeed, Time.deltaTime * smooth ), minFieldOfView, maxFieldOfView );
 			}
 		}
-			if(Input.GetKeyDown("space"))
-			{
-                GetComponent<Camera>().fieldOfView = 60;
-                GetComponent<Camera>().transform.rotation = startPosition;
-			}
+
+        if ( lookAtTarget )
+        {
+            Quaternion targetRotation = Quaternion.LookRotation( target.transform.position - GetComponent<Camera>().transform.position );
+            GetComponent<Camera>().transform.rotation = Quaternion.Slerp( transform.rotation, targetRotation, cameraRotationSpeed * Time.deltaTime );
+
+            if ( targetRotation == GetComponent<Camera>().transform.rotation )
+            {
+                lookAtTarget = false;
+            }
+        }
+
+		if(Input.GetKeyDown("space"))
+		{
+            GetComponent<Camera>().fieldOfView = 60;
+            GetComponent<Camera>().transform.rotation = startPosition;
 		}
 	}
-//}
+}
