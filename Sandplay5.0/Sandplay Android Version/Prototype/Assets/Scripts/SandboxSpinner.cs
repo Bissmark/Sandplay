@@ -13,6 +13,8 @@ public class SandboxSpinner : MonoBehaviour {
 	Ray r;
 	int speed = 60;
 
+	public GameObject saveBar;
+
 	void Start()
 	{
 		oSpawner = GetComponent<ObjectSpawner> ();
@@ -38,11 +40,14 @@ public class SandboxSpinner : MonoBehaviour {
 				//Either the spawner isn't spawning, or if it is, make sure we're not using the same touch as it
 				if ( oSpawner.CurrentState == SPAWN_STATE.NOT_SPAWNING && t.phase == TouchPhase.Began)
 				{
-					if ( Physics.Raycast(r, out info ) && info.collider.tag == "Rotater" )
+					if(saveBar.activeSelf == false)
 					{
-						iTouchID = t.fingerId;
-						//move = info.normal;
-						break;
+						if ( Physics.Raycast(r, out info ) && info.collider.tag == "Rotater" )
+						{
+							iTouchID = t.fingerId;
+							//move = info.normal;
+							break;
+						}
 					}
 				}
 			}
