@@ -69,17 +69,17 @@ public class SaveScene : MonoBehaviour
     private void SaveSceneAction()
     {
         SaveEntry save_game = new SaveEntry();
+
+        // save sandbox rotation
         save_game._sandbox_rotation = _object_spawner.transform.rotation;
 
-        string partial_filepath = "/Sandplay_Screenshot_Save" + System.DateTime.Now.ToFileTime() + ".png";
-        save_game._screenshot_filename = Application.persistentDataPath + partial_filepath;
-
+        // save the filepath of the screenshot
+        string partial_filepath = "/Sandplay_Screenshot_Save";
         Screenshot ss = GameObject.FindObjectOfType<Screenshot>();
+        save_game._screenshot_filename = ss.TakeScreenShot( Application.persistentDataPath + partial_filepath, "Screenshot" ); ;
 
-        ss.SaveScreenshot();
-
+        // saving objects in the scene
         GameObject[] objects = GameObject.FindGameObjectsWithTag( "Object" );
-
         foreach ( GameObject go in objects )
         {
             ObjectSaveEntry entry = new ObjectSaveEntry();
@@ -91,6 +91,8 @@ public class SaveScene : MonoBehaviour
             save_game._objects.Add( entry );
         }
 
+        // serializing into xml
+        Debug.Log( Application.persistentDataPath );
         var serializer = new XmlSerializer( typeof( SaveEntry ) );
         TextWriter WriteFileStream = new StreamWriter( Application.persistentDataPath + "/" + "Sandplay_Save" + System.DateTime.Now.ToFileTime() );
         serializer.Serialize( WriteFileStream, save_game );

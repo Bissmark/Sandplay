@@ -25,14 +25,27 @@ public class Screenshot : MonoBehaviour
         System.IO.Directory.CreateDirectory(folder);
     }
 
-    public void SaveScreenshot()
+    public void OnClickScreenshotButton()
+    {
+
+        SaveScreenshot( this.folder, this.fileName );
+    }
+
+    public string TakeScreenShot( string folder, string fileName )
+    {
+         return SaveScreenshot( folder, fileName );
+    }
+
+    private string SaveScreenshot(string folder, string fileName)
     {
         string currentDT = DateTime.Now.ToString( "yyyy-MM-dd HH.mm.ss" );
-
-        Application.CaptureScreenshot(folder + fileName + currentDT +".png");
+        string filePath = folder + fileName + currentDT + ".png";
+       
+        Application.CaptureScreenshot( filePath );
         // TODO: this method is not going to work for the web.
         // Task 1: Capture screenshot using RenderTexture(web only)
         // Task 2: Upload it to the server(web only)
 
+        return filePath;
     }
 }
