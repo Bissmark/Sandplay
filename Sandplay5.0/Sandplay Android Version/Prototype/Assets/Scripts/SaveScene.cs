@@ -45,34 +45,10 @@ public class SaveScene : MonoBehaviour
 		_save_game = null;
 	}
 
-	public void OnSave()
+	public void OnClickSaveButton()
 	{
-		SaveEntry save_game = new SaveEntry();
-		save_game._sandbox_rotation = _object_spawner.transform.rotation;
-
-		string partial_filepath = "/Sandplay_Screenshot_Save" + System.DateTime.Now.ToFileTime() + ".png";
-		save_game._screenshot_filename = Application.persistentDataPath + partial_filepath;
-		
-		Screenshot ss = GameObject.FindObjectOfType<Screenshot>();
-
-		ss.SaveScreenshot ();
-
-		GameObject[] objects = GameObject.FindGameObjectsWithTag("Object");
-
-		foreach (GameObject go in objects)
-		{
-			ObjectSaveEntry entry = new ObjectSaveEntry();
-
-			entry._name = go.name;
-			entry._position = go.transform.position;
-			entry._scale = go.transform.localScale;
-			entry._rotation = go.transform.rotation;
-			save_game._objects.Add(entry);
-		}
-
-		var serializer = new XmlSerializer(typeof(SaveEntry));
-		TextWriter WriteFileStream = new StreamWriter(Application.persistentDataPath + "/" + "Sandplay_Save" + System.DateTime.Now.ToFileTime());
-		serializer.Serialize(WriteFileStream, save_game);
+        SaveSceneAction();
+        GetComponent<SaveBar>().buttonSave.SetActive( false );
 	}
 	
 	void Load()
@@ -89,4 +65,34 @@ public class SaveScene : MonoBehaviour
 			go.transform.parent = _object_spawner.transform;
 		}
 	}
+
+    private void SaveSceneAction()
+    {
+        SaveEntry save_game = new SaveEntry();
+        save_game._sandbox_rotation = _object_spawner.transform.rotation;
+
+        string partial_filepath = "/Sandplay_Screenshot_Save" + System.DateTime.Now.ToFileTime() + ".png";
+        save_game._screenshot_filename = Application.persistentDataPath + partial_filepath;
+
+        Screenshot ss = GameObject.FindObjectOfType<Screenshot>();
+
+        ss.SaveScreenshot();
+
+        GameObject[] objects = GameObject.FindGameObjectsWithTag( "Object" );
+
+        foreach ( GameObject go in objects )
+        {
+            ObjectSaveEntry entry = new ObjectSaveEntry();
+
+            entry._name = go.name;
+            entry._position = go.transform.position;
+            entry._scale = go.transform.localScale;
+            entry._rotation = go.transform.rotation;
+            save_game._objects.Add( entry );
+        }
+
+        var serializer = new XmlSerializer( typeof( SaveEntry ) );
+        TextWriter WriteFileStream = new StreamWriter( Application.persistentDataPath + "/" + "Sandplay_Save" + System.DateTime.Now.ToFileTime() );
+        serializer.Serialize( WriteFileStream, save_game );
+    }
 }
