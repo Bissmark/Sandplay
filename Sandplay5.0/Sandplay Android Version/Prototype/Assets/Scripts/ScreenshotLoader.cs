@@ -10,7 +10,6 @@ public class ScreenshotLoader : MonoBehaviour {
 	public Transform _screenshot_parent;
 	public GameObject _preview_prefab;
 	public GameObject screenshotHelp;
-	Screenshot testPath;
 
     // the extensions we only want to load
     private List<string> _imageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
@@ -26,12 +25,15 @@ public class ScreenshotLoader : MonoBehaviour {
 		if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer) 
 		{
 			return Directory.GetFiles (Application.dataPath + "/StreamingAssets/"); // this never is going to happen
-		} 
+		}
+        else if ( Application.platform == RuntimePlatform.WindowsPlayer )
+        {
+            return Directory.GetFiles( Application.persistentDataPath + "/Screenshots" );
+        }
 		else 
 		{
 			return Directory.GetFiles (Application.dataPath + "/Screenshots");
 		}
-		return Directory.GetFiles (Application.dataPath + "/Sand Play Web Build.unity3d");
 	}
 
 	public void LoadScreens()

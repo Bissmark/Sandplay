@@ -18,6 +18,10 @@ public class Screenshot : MonoBehaviour
         {
             folder = Application.dataPath + "/StreamingAssets/";//"/../Screenshots"; // this will do nothing StreamingAssets don't work on the web
         }
+        else if ( Application.platform == RuntimePlatform.WindowsPlayer )
+        {
+            folder = Application.persistentDataPath + "/Screenshots/";
+        }
         else
         {
             folder = Application.dataPath + "/Screenshots/";
