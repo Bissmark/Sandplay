@@ -25,6 +25,8 @@ public class SaveEntry
 	public Quaternion _sandbox_rotation;
 	//take a screenshot for the load screen
 	public string _screenshot_filename;
+    public string _saveName;
+    public System.DateTime _saveTime;
 };
 
 
@@ -47,8 +49,8 @@ public class SaveScene : MonoBehaviour
 
 	public void OnClickSaveButton()
 	{
-        SaveSceneAction();
-        GetComponent<SaveBar>().buttonSave.SetActive( false );
+        SaveSceneAction( GetComponent<SaveBar>().SaveInput.text );
+        GetComponent<SaveBar>().SavePanel.SetActive( false );
 	}
 	
 	void Load()
@@ -66,7 +68,7 @@ public class SaveScene : MonoBehaviour
 		}
 	}
 
-    private void SaveSceneAction()
+    private void SaveSceneAction(string saveName)
     {
         SaveEntry save_game = new SaveEntry();
 
@@ -90,6 +92,12 @@ public class SaveScene : MonoBehaviour
             entry._rotation = go.transform.rotation;
             save_game._objects.Add( entry );
         }
+
+        // save time
+        save_game._saveTime = System.DateTime.Now;
+
+        // save name
+        save_game._saveName = saveName;
 
         // serializing into xml
         Debug.Log( Application.persistentDataPath );

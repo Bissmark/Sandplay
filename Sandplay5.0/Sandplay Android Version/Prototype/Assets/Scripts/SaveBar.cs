@@ -1,20 +1,35 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class SaveBar : MonoBehaviour 
 {
-	public GameObject buttonSave;
+    [SerializeField]
+	private GameObject savePanel = null;
+    public GameObject SavePanel { get { return savePanel; } }
+
+    [SerializeField]
+    private InputField saveInput = null;
+    public InputField SaveInput { get { return saveInput; } }
+
+    private void Awake()
+    {
+        // checking for errors
+        DebugUtils.Assert( savePanel != null, "Check if save panel is hooked up" );
+        DebugUtils.Assert( saveInput != null, "Check if save input is hooked up" );
+    }
+
 
 	// Use this for initialization
 	public void OnClick()
 	{
-		if (buttonSave.activeSelf == false) 
+		if (savePanel.activeSelf == false) 
 		{
-			buttonSave.SetActive (true);
+			savePanel.SetActive (true);
 		} 
 		else 
 		{
-			buttonSave.SetActive(false);
+			savePanel.SetActive(false);
 		}
 	}
 }
