@@ -52,7 +52,7 @@ public class LoadScenes : MonoBehaviour
         return saveEntries;
     }
 
-    private Texture2D GetTexture( SaveEntry entry )
+    public Texture2D GetTexture( SaveEntry entry )
     {
         Texture2D texture = null;
         //Open the stream and read it back. 

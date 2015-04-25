@@ -7,29 +7,40 @@ using UnityEngine.UI;
 public class SaveScenesLoader : MonoBehaviour
 {
     [SerializeField]
-    private GameObject saveEntryPrefab = null; 
+    private GameObject saveSlotPrefab = null; 
+
+    [SerializeField]
+    private Transform parent = null;
 
     private List<SaveEntry> saveEntries = null;
 
     private void Start()
     {
         saveEntries = MenuLogic.Instance.GetComponent<LoadScenes>().SaveEntries;
+
+        if ( saveEntries != null && saveEntries.Count > 0 )
+        {
+            LoadSaveSlotImages();
+        }
     }
 
-    /*
-    public void LoadSaveImages(string[] filenames)
+    public void LoadSaveSlotImages()
     {
-        GameObject go = Instantiate( _preview_prefab ) as GameObject;
-        go.transform.SetParent( _screenshot_parent );
-        go.transform.localScale = Vector3.one;
-        go.transform.localPosition = new Vector3( _screenshot_parent.GetComponent<HorizontalLayoutGroup>().spacing * i, 0, 0 );
+        for (int i = 0; i < saveEntries.Count; i++)
+		{
+            // instantiate prefab
+            GameObject go = Instantiate( saveSlotPrefab ) as GameObject;
 
-        //RawImage ri = new GameObject("Image").AddComponent<RawImage>();
-        //ri.texture = texture;
+            // pass on the information
+            go.GetComponent<SaveSlot>().SaveEntry = saveEntries[ i ];
 
-        go.transform.GetChild( 0 ).GetComponent<RawImage>().texture = texture;
-        fs.Close();
-        ++i;
+            // set positioning and scale
+            go.transform.SetParent( parent );
+            go.transform.localScale = Vector3.one;
+            go.transform.localPosition = new Vector3( parent.GetComponent<HorizontalLayoutGroup>().spacing * i, 0, 0 );
+
+            // set image
+            go.transform.GetChild( 0 ).GetComponent<RawImage>().texture = MenuLogic.Instance.GetComponent<LoadScenes>().GetTexture(saveEntries[i]);
+		}
     }
-     */
 }

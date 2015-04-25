@@ -35,7 +35,7 @@ public class SaveUI : MonoBehaviour
 			go.transform.localScale = Vector3.one;
 			//go.transform.localPosition = new Vector3(_screenshot_parent.GetComponent<UIWrapContent>().itemSize * i, 0, 0);
 			//go.transform.GetChild(0).GetComponent<UITexture>().mainTexture = texture;
-			go.GetComponent<SaveSlot>()._save = save;
+			go.GetComponent<SaveSlot>().SaveEntry = save;
 			fs.Close();
 			++i;
 
