@@ -12,14 +12,11 @@ public class SaveSlot : MonoBehaviour
 
     public void OnClick()
     {
-        /*
         // check that save doesn't equal to null
         DebugUtils.Assert( saveEntry != null, "Save entry is not initialized" );
 
         // Start loading the scene
-        GameObject.FindObjectOfType<SaveUI>().StartLoad(saveEntry);
-         */
+        MenuLogic.Instance.GetComponent<LoadScenes>().StartLoad( saveEntry );
 
-        Debug.Log( "Click Detected" );
     }
 }

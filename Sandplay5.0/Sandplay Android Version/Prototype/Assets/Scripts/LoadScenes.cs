@@ -52,6 +52,10 @@ public class LoadScenes : MonoBehaviour
         return saveEntries;
     }
 
+
+    /// <summary>
+    /// Returns image based on Safe Entry
+    /// </summary>
     public Texture2D GetTexture( SaveEntry entry )
     {
         Texture2D texture = null;
@@ -71,6 +75,16 @@ public class LoadScenes : MonoBehaviour
         }
         return texture;
     }
+
+    /// <summary>
+    /// Loads the scene
+    /// </summary>
+    public void StartLoad( SaveEntry save )
+    {
+        SaveScene._save_game = save;
+        Application.LoadLevel( 1 );
+    }
+
 
 
     /// <summary>
