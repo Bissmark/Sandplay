@@ -9,28 +9,13 @@ using System.Linq;
 public class LoadScenes : MonoBehaviour
 {
     private List<SaveEntry> saveEntries = null;
-    public struct SaveEntryPair
-    {
-        public SaveEntry SaveEntry;
-        public Texture2D Texture;
-    }
-
-    private List<SaveEntryPair> entryPairs = null;
-    public List<SaveEntryPair> SaveEntries { get { return entryPairs; } }
+    public List<SaveEntry> SaveEntries { get { return saveEntries; } }
 
     // Use this for initialization
     void Start()
     {
         // get save files
         saveEntries = DeserializeSaveEntries( GetSaveGameNames() );
-        entryPairs = new List<SaveEntryPair>();
-        // populate SaveEntry pairs with save entry and an image
-        foreach ( SaveEntry se in saveEntries )
-        {
-            SaveEntryPair pair = new SaveEntryPair();
-            pair.SaveEntry = se;
-            pair.Texture = GetTexture( se );
-        }
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MenuLogic : MonoBehaviour 
+public class MenuLogic : Manager<MenuLogic>
 {
 	public GameObject mainMenu;
 	public GameObject loadMenu;
@@ -13,8 +13,10 @@ public class MenuLogic : MonoBehaviour
 	private GameObject activeMenu;
 	private GameObject prevMenu;
 	
-	void Awake () 
-	{		
+    protected override void Awake()
+	{
+        base.Awake();
+
 		activeMenu = mainMenu;	
 	}
 	
