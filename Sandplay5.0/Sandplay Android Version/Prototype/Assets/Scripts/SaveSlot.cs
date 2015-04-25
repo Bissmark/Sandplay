@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,18 @@ using System.Text;
 
 public class SaveSlot : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField]
+    private RawImage background = null;
+    public RawImage Background { get { return background; } }
+
+    [SerializeField]
+    private Text saveName = null;
+    public Text SaveName { get { return saveName; } }
+
+    [SerializeField]
+    private Text saveDate = null;
+    public Text SaveDate { get { return saveDate; } }
+
     private SaveEntry saveEntry = null;
     public SaveEntry SaveEntry { get { return saveEntry; } set { saveEntry = value; } }
 
@@ -18,8 +31,10 @@ public class SaveSlot : MonoBehaviour, IPointerClickHandler
     {
         if ( eventData.clickCount == 2)
         {
-            // check that save doesn't equal to null
+            // check for errors
             DebugUtils.Assert( saveEntry != null, "Save entry is not initialized" );
+            DebugUtils.Assert( saveName != null, "Save name is not initialized" );
+            DebugUtils.Assert( saveDate != null, "Save date is not initialized" );
 
             if ( eventData.clickCount == 2 )
             {

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SaveScenesLoader : MonoBehaviour
 {
     [SerializeField]
-    private GameObject saveSlotPrefab = null; 
+    private GameObject saveSlotPrefab = null;
 
     [SerializeField]
     private Transform parent = null;
@@ -26,8 +26,8 @@ public class SaveScenesLoader : MonoBehaviour
 
     public void LoadSaveSlotImages()
     {
-        for (int i = 0; i < saveEntries.Count; i++)
-		{
+        for ( int i = 0; i < saveEntries.Count; i++ )
+        {
             // instantiate prefab
             GameObject go = Instantiate( saveSlotPrefab ) as GameObject;
 
@@ -39,8 +39,14 @@ public class SaveScenesLoader : MonoBehaviour
             go.transform.localScale = Vector3.one;
             go.transform.localPosition = new Vector3( parent.GetComponent<HorizontalLayoutGroup>().spacing * i, 0, 0 );
 
-            // set image
-            go.transform.GetChild( 0 ).GetComponent<RawImage>().texture = MenuLogic.Instance.GetComponent<LoadScenes>().GetTexture(saveEntries[i]);
-		}
+
+            // cashing for ease of use
+            SaveSlot sv = go.GetComponent<SaveSlot>();
+
+            // populating with data
+            sv.Background.texture = MenuLogic.Instance.GetComponent<LoadScenes>().GetTexture( saveEntries[ i ] );
+            sv.SaveName.text = saveEntries[ i ]._saveName;
+            sv.SaveDate.text = saveEntries[ i ]._saveTime.ToShortDateString();
+        }
     }
 }
