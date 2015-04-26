@@ -6,6 +6,7 @@ public class SoundChange : MonoBehaviour
 	public GameObject soundEnabledIcon;
 	public GameObject soundDisabledIcon;
 	public AudioSource music;
+    private float volume = 0;
 	
 	public void SoundMute() 
 	{
@@ -13,13 +14,16 @@ public class SoundChange : MonoBehaviour
 		{
 			soundEnabledIcon.SetActive(true);
 			soundDisabledIcon.SetActive(false);
-			music.mute = false;
+            music.volume = volume;
+			//music.mute = false;
 		}
 		else
 		{
 			soundEnabledIcon.SetActive(false);
 			soundDisabledIcon.SetActive(true);
-			music.mute = true;
+            volume = music.volume;
+            music.volume = 0;
+            //music.mute = true;
 		}
 	}
 }
