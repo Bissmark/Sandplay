@@ -14,6 +14,14 @@ public class SaveScenesLoader : MonoBehaviour
 
     private List<SaveEntry> saveEntries = null;
 
+
+    private void Awake()
+    {
+        //error checking
+        DebugUtils.Assert( saveSlotPrefab != null, "Check if save slot prefab is linked " );
+        DebugUtils.Assert( parent != null, "Check if save parent is linked " );
+    }
+
     private void Start()
     {
         saveEntries = MenuLogic.Instance.GetComponent<LoadScenes>().SaveEntries;
