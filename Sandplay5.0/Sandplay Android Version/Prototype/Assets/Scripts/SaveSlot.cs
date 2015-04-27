@@ -24,6 +24,16 @@ public class SaveSlot : MonoBehaviour, IPointerClickHandler
     private SaveEntry saveEntry = null;
     public SaveEntry SaveEntry { get { return saveEntry; } set { saveEntry = value; } }
 
+
+
+    private void Awake()
+    {
+        // check for errors
+        DebugUtils.Assert( saveEntry != null, "Save entry is not initialized" );
+        DebugUtils.Assert( saveName != null, "Save name is not initialized" );
+        DebugUtils.Assert( saveDate != null, "Save date is not initialized" );
+    }
+
     /// <summary>
     /// Detects double click and loads the scene
     /// </summary>
@@ -31,11 +41,6 @@ public class SaveSlot : MonoBehaviour, IPointerClickHandler
     {
         if ( eventData.clickCount == 2)
         {
-            // check for errors
-            DebugUtils.Assert( saveEntry != null, "Save entry is not initialized" );
-            DebugUtils.Assert( saveName != null, "Save name is not initialized" );
-            DebugUtils.Assert( saveDate != null, "Save date is not initialized" );
-
             if ( eventData.clickCount == 2 )
             {
                 // Start loading the scene
